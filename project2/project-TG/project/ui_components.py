@@ -216,7 +216,7 @@ def practice_ui():
             while st.session_state.current_quiz_question == prev_question:
                 st.session_state.current_quiz_question = np.random.choice(len(quiz_questions))
             st.session_state.quiz_answered = False
-            st.experimental_rerun()
+            st.rerun()
 
 def visualization_ui():
     """Display algorithm visualization"""
@@ -335,7 +335,7 @@ def visualization_ui():
         st.markdown(f"**Visited Nodes**: {current_step.get('visited', [])}")
         
         # Get detailed explanation from GPT if API key is provided
-        if "OPENAI_API_KEY" in st.secrets or "OPENAI_API_KEY" in os.environ:
+        if "GEMINI_API_KEY" in st.secrets or "GEMINI_API_KEY" in os.environ:
             with st.expander("AI-Powered Explanation", expanded=True):
                 with st.spinner("Getting detailed explanation..."):
                     explanation = get_explanation(
@@ -365,7 +365,7 @@ def visualization_ui():
             st.session_state.graph = add_node_to_graph(st.session_state.graph)
             st.session_state.algorithm_steps = []
             st.success(f"Node {len(st.session_state.graph.nodes())-1} added!")
-            st.experimental_rerun()
+            st.rerun()
         
         # Add edge
         edge_from = st.selectbox("Edge From", sorted(list(st.session_state.graph.nodes())), key="edge_from")
@@ -379,7 +379,7 @@ def visualization_ui():
                     st.session_state.graph = add_edge_to_graph(st.session_state.graph, edge_from, edge_to)
                     st.session_state.algorithm_steps = []
                     st.success(f"Edge ({edge_from}, {edge_to}) added!")
-                    st.experimental_rerun()
+                    st.rerun()
             else:
                 st.warning("Cannot add self-loop (edge to the same node)!")
     
